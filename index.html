@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>final project</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <nav class="navbar">
+  <div class="nav-container">
+    <a href="#" class="logo">個人作品集</a>
+    <ul class="nav-links">
+      <li><a href="#freshman">大一作品</a></li>
+      <li><a href="#sophomore">大二作品</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero-section">
+  <h1>歡迎來到周玟伃的大學作品集</h1>
+  <p>點擊任何一項作品的「查看作品詳情」，即可閱讀完整的設計理念與成果展示</p>
+</header>
+
+<main class="portfolio-container">
+
+  <section id="freshman" class="year-section">
+    <h2 class="year-title">大一作品總覽</h2>
+    <div class="project-grid">
+      
+      <div class="project-card">
+        <img src="https://i.imgur.com/uA148gZ.png" alt="程式設計" class="project-img manta-ray-img">
+        <div class="project-info">
+          <span class="semester-tag">大一上</span>
+          <h3>程式設計</h3>
+          <p>我的第一個個人網站期末專案，整合了基礎的網頁前端技術。</p>
+          <button class="project-btn" onclick="document.getElementById('modal-1').showModal()">查看作品詳情</button>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://i.imgur.com/vHq4wJ6.png" alt="個人名片設計" class="project-img manta-ray-img">
+        <div class="project-info">
+          <span class="semester-tag">大一下</span>
+          <h3>視覺傳達設計 - 名片</h3>
+          <p>結合個人風格與視覺美學設計的專屬名片，展現獨特的排版技巧與個人特色。</p>
+          <button class="project-btn" onclick="document.getElementById('modal-2').showModal()">查看作品詳情</button>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-video-container">
+          <iframe src="https://www.youtube.com/embed/Z3YNMa538vI" title="動畫概論影片" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="project-info">
+          <span class="semester-tag">大一下</span>
+          <h3>動畫概論</h3>
+          <p>練習基礎動畫原理，並繪製出一片完整的流暢手繪/數位短片成果。</p>
+          <button class="project-btn" onclick="document.getElementById('modal-3').showModal()">查看作品詳情</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="sophomore" class="year-section">
+    <h2 class="year-title">大二作品總覽</h2>
+    <div class="project-grid">
+      
+      <div class="project-card">
+        <div class="card-video-container">
+          <iframe src="https://www.youtube.com/embed/u2MDDEsnVRA" title="Unity 遊戲演示" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="project-info">
+          <span class="semester-tag">大二上</span>
+          <h3>多媒體程式設計 - Unity</h3>
+          <p>使用 Unity 引擎開發的互動遊戲專案，包含關卡設計與 C# 腳本撰寫。</p>
+          <button class="project-btn" onclick="document.getElementById('modal-4').showModal()">查看作品詳情</button>
+        </div>
+      </div>
+
+    <div class="project-card">
+  <div class="card-video-container">
+    <iframe src="https://www.youtube.com/embed/TYCXLn0BCX0" title="電腦動畫作品" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <div class="project-info">
+    <span class="semester-tag">大二上</span>
+    <h3>電腦動畫</h3>
+    <p>運用進階動畫軟體製作的動態作品，包含運鏡、燈光與材質調整。</p>
+    <button class="project-btn" onclick="document.getElementById('modal-5').showModal()">查看作品詳情</button>
+  </div>
+</div>
+       
+      <div class="project-card">
+        <img src="https://picsum.photos/600/400?random=6" alt="數位插畫" class="project-img">
+        <div class="project-info">
+          <span class="semester-tag">大二下</span>
+          <h3>數位插畫</h3>
+          <p>大二下學期創作的精選插畫系列成品，點擊可看完整作品集錦。</p>
+          <button class="project-btn" onclick="document.getElementById('modal-6').showModal()">查看作品詳情</button>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://picsum.photos/600/400?random=7" alt="網頁設計" class="project-img">
+        <div class="project-info">
+          <span class="semester-tag">大二下</span>
+          <h3>網頁設計</h3>
+          <p>運用進階前端技術與 RWD 響應式思維設計的全新個人綜合網站。</p>
+          <button class="project-btn" onclick="document.getElementById('modal-7').showModal()">查看作品詳情</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<dialog id="modal-1" class="info-modal">
+  <div class="modal-content">
+    <h2>程式設計 - 作品詳情</h2>
+    <hr>
+    <img src="https://i.imgur.com/uA148gZ.png" alt="大圖展示" class="modal-main-img manta-ray-img">
+    <h3>設計理念與心得</h3>
+    <p>這是我的大一期末網站成果，整合了基礎的網頁前端技術（HTML/CSS）。點擊下方綠色按鈕可以直接連過去看我的網站喔！</p>
+    <div class="modal-actions">
+      <a href="https://yjbg91313.github.io/final/" target="_blank" class="action-btn link-btn">前往瀏覽個人網站</a>
+      <button class="action-btn close-btn" onclick="document.getElementById('modal-1').close()">關閉視窗</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="modal-2" class="info-modal">
+  <div class="modal-content">
+    <h2>視覺傳達設計 - 個人名片設計</h2>
+    <hr>
+    <img src="https://i.imgur.com/vHq4wJ6.png" alt="名片大圖" class="modal-main-img manta-ray-img">
+    <h3>設計理念</h3>
+    <p>這裡詳細說明你的名片設計靈感，例如色彩計畫（為什麼選這個柔和紫色）、字體搭配，以及你想傳達給別人的個人意象是什麼。</p>
+    <div class="modal-actions">
+      <button class="action-btn close-btn" onclick="document.getElementById('modal-2').close()">關閉視窗</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="modal-3" class="info-modal">
+  <div class="modal-content">
+    <h2>動畫概論 - 影片展示</h2>
+    <hr>
+    <div class="modal-video-container">
+      <iframe src="https://www.youtube.com/embed/Z3YNMa538vI" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <h3>動畫腳本與說明</h3>
+    <p>這段動畫描述了一個關於...的故事。在製作過程中，我學習了動態分鏡、角色走位以及影格率的調整，點擊上方影片即可直接播放欣賞。</p>
+    <div class="modal-actions">
+      <button class="action-btn close-btn" onclick="document.getElementById('modal-3').close()">關閉視窗</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="modal-4" class="info-modal">
+  <div class="modal-content">
+    <h2>多媒體程式設計 - Unity 遊戲專案</h2>
+    <hr>
+    <div class="modal-video-container">
+      <iframe src="https://www.youtube.com/embed/u2MDDEsnVRA" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <h3>遊戲企劃與開發細節</h3>
+    <p>本作品是一款使用 Unity 開發的互動遊戲。在專案中我負責了 C# 程式碼編寫、碰撞偵測以及 UI 介面的串接。如果網頁支援，可以點擊下方綠色按鈕直接進入線上網頁版遊玩！</p>
+    <div class="modal-actions">
+      <a href="https://drive.google.com/file/d/1phK5jjXAhCnFoYi7TZWFP_1jLC4qBz-o/view?usp=sharing" target="_blank" class="action-btn link-btn">直接線上玩遊戲</a>
+      <button class="action-btn close-btn" onclick="document.getElementById('modal-4').close()">關閉視窗</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="modal-5" class="info-modal">
+  <div class="modal-content">
+    <h2>電腦動畫 - 成果作品</h2>
+    <hr>
+    <div class="modal-video-container">
+      <iframe src="https://www.youtube.com/embed/TYCXLn0BCX0" title="1133827期末作業.mp4" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <h3>動畫製作說明</h3>
+    <p>此電腦動畫作品著重於場景光源的營造與鏡頭流暢度。透過軟體調整材質球，呈現出高級的視覺質感。</p>
+    <div class="modal-actions">
+      <button class="action-btn close-btn" onclick="document.getElementById('modal-5').close()">關閉視窗</button>
+    </div>
+  </div>
+</dialog>
+<dialog id="modal-6" class="info-modal">
+  <div class="modal-content">
+    <h2>數位插畫精選 - 作品集錦</h2>
+    <hr>
+    <h3>精選成品展示 (這裡可放 3~10 張圖)</h3>
+    <div class="modal-gallery">
+      <img src="https://picsum.photos/400/300?random=21" alt="插畫1">
+      <img src="https://picsum.photos/400/300?random=22" alt="插畫2">
+      <img src="https://picsum.photos/400/300?random=23" alt="插畫3">
+      <img src="https://picsum.photos/400/300?random=24" alt="插畫4">
+      <img src="https://picsum.photos/400/300?random=25" alt="插畫5">
+      <img src="https://picsum.photos/400/300?random=26" alt="插畫6">
+    </div>
+    <p>這裡收集了大二下學期的數位插畫課所有成品。創作主題涵蓋了不同風格的插畫創作與海報摹寫。</p>
+    <div class="modal-actions">
+      <button class="action-btn close-btn" onclick="document.getElementById('modal-6').close()">關閉視窗</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="modal-7" class="info-modal">
+  <div class="modal-content">
+    <h2>網頁設計 - 進階響應式專案</h2>
+    <hr>
+    <img src="https://picsum.photos/600/400?random=7" alt="網頁設計大圖" class="modal-main-img">
+    <h3>網頁技術與特點</h3>
+    <p>大二下的網頁設計作品，相較於大一，運用了更豐富的 CSS Flexbox 與 Grid 佈局技術，達成了完美顯示的 RWD 響應式網頁。</p>
+    <div class="modal-actions">
+      <a href="https://yjbg91313.github.io/business-card1/" target="_blank" class="action-btn link-btn">前往瀏覽網頁作品</a>
+      <button class="action-btn close-btn" onclick="document.getElementById('modal-7').close()">關閉視窗</button>
+    </div>
+  </div>
+</dialog>
+
+<footer class="footer">
+  <p>© 2026 我的大學作品集.</p>
+</footer>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    // 功能一：滾動網頁時，頂端導覽列切換高級毛玻璃與陰影
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+    });
+
+    // 功能二：JS 滾動偵測——作品卡片漸顯登場 (Scroll Reveal)
+    const cards = document.querySelectorAll('.project-card');
+    
+    // 設定偵測條件：當卡片露出畫面 10% 時觸發
+    const observerOptions = {
+      root: null,
+      threshold: 0.1,
+      rootMargin: "0px 0px -30px 0px"
+    };
+
+    const cardObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // 讓卡片逐一加上登場類別
+          entry.target.classList.add('card-visible');
+          // 登場後就解除監聽，優化網頁效能
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    cards.forEach(card => {
+      cardObserver.observe(card);
+    });
+  });
+</script>
+    
+  </body>
+  
+</html>

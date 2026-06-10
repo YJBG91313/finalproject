@@ -1,0 +1,787 @@
+/* ==================== 基礎與全域設定 ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-/* ==================== 基礎與全域設定 ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 確保寬高計算包含內邊距，防止排版變形 */
+}
+
+html {
+  scroll-behavior: smooth; /* 點擊導覽列錨點時，畫面平滑滾動 */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+body {
+  background-color: #f3f0f7; /* 設定整體網頁背景色為柔和的淡紫色 */
+  position: relative; 
+  overflow-x: hidden; /* 防止巨大的背景字體不小心撐出水平滾動條 */
+}
+
+/* ==================== 【關鍵核心】巨大透明 NCYU 背景 ==================== */
+body::before {
+  content: 'NCYU'; /* 直接用文字當作網頁的大背景 */
+  position: fixed; /* 固定在螢幕畫面上，滾動網頁時它會乖乖待在原地 */
+  top: 50%; /* 從螢幕頂部向下推 50% */
+  left: 50%; /* 從螢幕左側向右推 50% */
+  transform: translate(-50%, -50%); /* 運用位移，把字體的中心點完美對齊螢幕的正中央 */
+  
+  /* 響應式字體大小：24vw 代表字體大小是瀏覽器寬度的 24%。螢幕越大字越大，完美 RWD */
+  font-size: 24vw; 
+  font-weight: 900; /* 讓字體極粗，做出厚實的偏光質感 */
+  letter-spacing: 1vw; /* 字母間距，讓字體橫跨整個螢幕 */
+  
+  /* 關鍵透明度：使用 rgba 顏色。最後一個數字 0.07 就是不透明度 (Alpha)
+     如果覺得太淡看不清，可以改成 0.12；如果覺得太明顯，可以改成 0.04 */
+  color: rgba(145, 120, 165, 0.07); 
+  
+  z-index: -1; /* 確保這個大字體在最底層，絕對不會擋到你的作品卡片 */
+  pointer-events: none; /* 讓滑鼠點擊可以穿透這四個大字，不影響按鈕點擊 */
+  white-space: nowrap; /* 強制文字絕對不換行 */
+  font-family: 'Arial Black', Gadget, sans-serif; /* 使用極粗的歐美字體體系 */
+}
+
+/* ==================== 響應式導覽列 ==================== */
+.navbar {
+  position: sticky; /* 固定在螢幕頂部 */
+  top: 0;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 底部微陰影 */
+  z-index: 100; /* 層級提高，避免被卡片遮擋 */
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #555; 
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #a689b6; /* 滑鼠移至文字變紫色 */
+}
+
+/* ==================== 頁首 Welcome 區 ==================== */
+.hero-section {
+  background: linear-gradient(135deg, #a689b6, #d8b6e8); /* 柔和個人風紫色漸層背景 */
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero-section h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+/* ==================== 主要佈局（響應式核心） ==================== */
+.portfolio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.year-section {
+  margin-bottom: 50px;
+  scroll-margin-top: 80px; /* 防止導覽列遮擋錨點跳轉後的標題 */
+}
+
+.year-title {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-left: 5px solid #a689b6; /* 標題左側小條改為紫色 */
+  padding-left: 10px;
+}
+
+/* 核心：響應式網格系統 (Grid) */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 自動填滿，最小 300px */
+  gap: 25px;
+}
+
+/* ==================== 作品卡片與滑鼠效果 ==================== */
+.project-card {
+  background: #faf7fb; /* 卡片改為柔和淡紫白色 */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04); /* 初始淡陰影 */
+  display: flex;
+  flex-direction: column;
+  
+  /* 【關鍵】當滑鼠移過去時，transform (放大) 和 box-shadow (陰影) 會在 0.3 秒內平滑地轉場變形 */
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+}
+
+/* 【關鍵效果】滑鼠移入卡片時：向上微移 + 整體微放大 + 陰影加深 */
+.project-card:hover {
+  transform: translateY(-6px) scale(1.02); /* 向上飄移 6px，整體放大 1.02 倍 */
+  box-shadow: 0 20px 30px rgba(145, 120, 165, 0.2); /* 讓陰影範圍擴大、加深，並帶有一點點紫色調，產生漂浮感 */
+}
+
+.project-img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover; /* 保持比例填滿格子 */
+}
+
+/* 針對主卡片內部 YouTube 影片的 16:9 響應式框架外殼 */
+.card-video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 完美的 16:9 比例 */
+  background-color: #000;
+}
+
+.card-video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* 針對大一圓形插畫的樣式（模擬你圖片中的個人名版感覺） */
+.manta-ray-img {
+  width: 120px;
+  height: 120px;
+  margin: 30px auto;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.project-info {
+  padding: 20px;
+  flex-grow: 1; /* 內文自動填滿，確保同一排卡片高度永遠對齊一樣長 */
+  display: flex;
+  flex-direction: column;
+}
+
+.semester-tag {
+  background-color: #f1ecf5; 
+  color: #a689b6;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+
+.project-info h3 {
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.project-info p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* 主卡片內部的按鈕 */
+.project-btn {
+  margin-top: auto; /* 推到卡片底部對齊 */
+  background-color: #a689b6; 
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.project-btn:hover {
+  background-color: #8f6e9f; /* 滑鼠移入按鈕變深紫色 */
+}
+
+/* ==================== 彈跳視窗細節樣式 (Modal) ==================== */
+.info-modal {
+  border: none;
+  border-radius: 16px;
+  max-width: 700px;
+  width: 90%; /* 手機版自動變成 90% 寬度，達成 RWD */
+  margin: auto;
+  padding: 25px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+  background-color: #fff;
+}
+
+/* 彈窗後面的背景遮罩模糊效果 */
+.info-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px); /* 讓背景的網格和巨大的 NCYU 產生美麗的毛玻璃模糊 */
+}
+
+.modal-content h2 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.modal-content hr {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin-bottom: 20px;
+}
+
+.modal-main-img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.modal-content h3 {
+  margin: 15px 0 8px 0;
+  color: #a689b6; 
+}
+
+.modal-content p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* 彈窗底部的按鈕佈局 */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border: none;
+}
+
+/* 綠色按鈕：用於外連網頁 */
+.link-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+.link-btn:hover {
+  background-color: #27ae60;
+}
+
+/* 紅色按鈕：用於關閉彈窗 */
+.close-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+.close-btn:hover {
+  background-color: #c0392b;
+}
+
+/* 彈窗內 RWD 響應式影片外殼 */
+.modal-video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.modal-video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 彈窗內多圖網格（數位插畫 3~10 張圖專用） */
+.modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.modal-gallery img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* ==================== 頁尾 ==================== */
+.footer {
+  text-align: center;
+  padding: 25px;
+  background-color: #2c3e50;
+  color: #9d8db2; 
+  font-size: 0.85rem;
+  position: relative; 
+}box; /* 確保寬高計算包含內邊距，防止排版變形 */
+}
+
+html {
+  scroll-behavior: smooth; /* 點擊導覽列錨點時，畫面平滑滾動 */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+body {
+  background-color: #f3f0f7; /* 設定整體網頁背景色為柔和的淡紫色 */
+  position: relative; 
+  overflow-x: hidden; /* 防止巨大的背景字體不小心撐出水平滾動條 */
+}
+
+/* ==================== 【關鍵核心】巨大透明 NCYU 背景 ==================== */
+body::before {
+  content: 'NCYU'; /* 直接用文字當作網頁的大背景 */
+  position: fixed; /* 固定在螢幕畫面上，滾動網頁時它會乖乖待在原地 */
+  top: 50%; /* 從螢幕頂部向下推 50% */
+  left: 50%; /* 從螢幕左側向右推 50% */
+  transform: translate(-50%, -50%); /* 運用位移，把字體的中心點完美對齊螢幕的正中央 */
+  
+  /* 響應式字體大小：24vw 代表字體大小是瀏覽器寬度的 24%。螢幕越大字越大，完美 RWD */
+  font-size: 24vw; 
+  font-weight: 900; /* 讓字體極粗，做出厚實的偏光質感 */
+  letter-spacing: 1vw; /* 字母間距，讓字體橫跨整個螢幕 */
+  
+  /* 關鍵透明度：使用 rgba 顏色。最後一個數字 0.07 就是不透明度 (Alpha)
+     如果覺得太淡看不清，可以改成 0.12；如果覺得太明顯，可以改成 0.04 */
+  color: rgba(145, 120, 165, 0.07); 
+  
+  z-index: -1; /* 確保這個大字體在最底層，絕對不會擋到你的作品卡片 */
+  pointer-events: none; /* 讓滑鼠點擊可以穿透這四個大字，不影響按鈕點擊 */
+  white-space: nowrap; /* 強制文字絕對不換行 */
+  font-family: 'Arial Black', Gadget, sans-serif; /* 使用極粗的歐美字體體系 */
+}
+
+/* ==================== 響應式導覽列 ==================== */
+.navbar {
+  position: sticky; /* 固定在螢幕頂部 */
+  top: 0;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 底部微陰影 */
+  z-index: 100; /* 層級提高，避免被卡片遮擋 */
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #555; 
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #a689b6; /* 滑鼠移至文字變紫色 */
+}
+
+/* ==================== 頁首 Welcome 區 ==================== */
+.hero-section {
+  background: linear-gradient(135deg, #a689b6, #d8b6e8); /* 柔和個人風紫色漸層背景 */
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero-section h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+/* ==================== 主要佈局（響應式核心） ==================== */
+.portfolio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.year-section {
+  margin-bottom: 50px;
+  scroll-margin-top: 80px; /* 防止導覽列遮擋錨點跳轉後的標題 */
+}
+
+.year-title {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-left: 5px solid #a689b6; /* 標題左側小條改為紫色 */
+  padding-left: 10px;
+}
+
+/* 核心：響應式網格系統 (Grid) */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 自動填滿，最小 300px */
+  gap: 25px;
+}
+
+/* ==================== 作品卡片與滑鼠效果 ==================== */
+.project-card {
+  background: #faf7fb; /* 卡片改為柔和淡紫白色 */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04); /* 初始淡陰影 */
+  display: flex;
+  flex-direction: column;
+  
+  /* 【關鍵】當滑鼠移過去時，transform (放大) 和 box-shadow (陰影) 會在 0.3 秒內平滑地轉場變形 */
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+}
+
+/* 【關鍵效果】滑鼠移入卡片時：向上微移 + 整體微放大 + 陰影加深 */
+.project-card:hover {
+  transform: translateY(-6px) scale(1.02); /* 向上飄移 6px，整體放大 1.02 倍 */
+  box-shadow: 0 20px 30px rgba(145, 120, 165, 0.2); /* 讓陰影範圍擴大、加深，並帶有一點點紫色調，產生漂浮感 */
+}
+
+.project-img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover; /* 保持比例填滿格子 */
+}
+
+/* 針對大一圓形插畫的樣式（模擬你圖片中的個人名版感覺） */
+.manta-ray-img {
+  width: 120px;
+  height: 120px;
+  margin: 30px auto;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.project-info {
+  padding: 20px;
+  flex-grow: 1; /* 內文自動填滿，確保同一排卡片高度永遠對齊一樣長 */
+  display: flex;
+  flex-direction: column;
+}
+
+.semester-tag {
+  background-color: #f1ecf5; 
+  color: #a689b6;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+
+.project-info h3 {
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.project-info p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* 主卡片內部的按鈕 */
+.project-btn {
+  margin-top: auto; /* 推到卡片底部對齊 */
+  background-color: #a689b6; 
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.project-btn:hover {
+  background-color: #8f6e9f; /* 滑鼠移入按鈕變深紫色 */
+}
+
+/* ==================== 彈跳視窗細節樣式 (Modal) ==================== */
+.info-modal {
+  border: none;
+  border-radius: 16px;
+  max-width: 700px;
+  width: 90%; /* 手機版自動變成 90% 寬度，達成 RWD */
+  margin: auto;
+  padding: 25px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+  background-color: #fff;
+}
+
+/* 彈窗後面的背景遮罩模糊效果 */
+.info-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px); /* 讓背景的網格和巨大的 NCYU 產生美麗的毛玻璃模糊 */
+}
+
+.modal-content h2 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.modal-content hr {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin-bottom: 20px;
+}
+
+.modal-main-img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.modal-content h3 {
+  margin: 15px 0 8px 0;
+  color: #a689b6; 
+}
+
+.modal-content p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* 彈窗底部的按鈕佈局 */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border: none;
+}
+
+/* 綠色按鈕：用於外連網頁 */
+.link-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+.link-btn:hover {
+  background-color: #27ae60;
+}
+
+/* 紅色按鈕：用於關閉彈窗 */
+.close-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+.close-btn:hover {
+  background-color: #c0392b;
+}
+
+/* 彈窗內 RWD 響應式影片外殼 */
+.modal-video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.modal-video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 彈窗內多圖網格（數位插畫 3~10 張圖專用） */
+.modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.modal-gallery img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* ==================== 頁尾 ==================== */
+.footer {
+  text-align: center;
+  padding: 25px;
+  background-color: #2c3e50;
+  color: #9d8db2; 
+  font-size: 0.85rem;
+  position: relative; 
+}
+/* ==================== 額外追加：加分動態特效 ==================== */
+
+/* 1. 導覽列滾動後的毛玻璃高階狀態 (由 JS 控制切換) */
+.navbar.navbar-scrolled {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px); /* 細緻的毛玻璃模糊 */
+  box-shadow: 0 4px 20px rgba(145, 120, 165, 0.08); /* 帶有一點點柔和紫色的陰影 */
+  transition: all 0.4s ease;
+}
+
+/* 2. 主頁作品卡片進場前的初始隱形狀態 (用於滾動漸顯) */
+.project-grid .project-card {
+  opacity: 0;
+  transform: translateY(35px) scale(0.96); /* 初始位置往下沉、縮小 */
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.3s ease; /* 保留你原本滑鼠移入的 0.3s 轉場 */
+}
+
+/* 當卡片滾動進入視野時，由 JS 加上這個類別，優雅浮現 */
+.project-grid .project-card.card-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 3. 卡片精緻亮光效果：建立一個隱藏的斜向反光層 */
+.project-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right, 
+    rgba(255,255,255,0) 0%, 
+    rgba(255,255,255,0.3) 50%, 
+    rgba(255,255,255,0) 100%
+  );
+  transform: skewX(-25deg); /* 傾斜的極光線條 */
+  pointer-events: none;
+}
+
+/* 當滑鼠移入卡片時，斜向反光在 0.75 秒內迅速劃過卡片，質感爆棚 */
+.project-card:hover::after {
+  left: 150%;
+  transition: left 0.75s ease-in-out;
+}
+
+/* 4. 微動態修正：滑鼠 hover 時，與漸顯動畫不衝突的優雅漂浮 */
+.project-grid .project-card.card-visible:hover {
+  transform: translateY(-8px) scale(1.02); /* 完美結合你原本的放大，且向上漂移更加滑順 */
+}
+/* ==================== 額外加分：純 CSS 高級視覺特效（免 JS） ==================== */
+
+/* 特效一：按鈕滑鼠懸停時的紫光呼吸暈染效果 */
+.project-btn, .action-btn {
+  /* 設定原本按鈕的陰影過渡，讓你原本的按鈕變換更滑順 */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease !important;
+}
+
+/* 當滑鼠移到卡片按鈕或彈窗按鈕上時 */
+.project-btn:hover, .action-btn:hover {
+  transform: translateY(-2px); /* 按鈕自己再往上漂浮 2px */
+  
+  /* 加上一層呼應你網頁主題的紫色動態光暈 (利用 box-shadow) */
+  box-shadow: 0 8px 20px rgba(166, 137, 182, 0.45); 
+}
+
+
+/* 特效二：頁首（Hero Section）炫彩漸層流動動畫 */
+.hero-section {
+  /* 放大背景圖的尺寸，這樣等一下移動背景時才有空間 */
+  background-size: 200% 200% !important;
+  
+  /* 注入動態效果：10秒內無限循環執行名為 gradientFlow 的動畫，速度維持前後平滑 (ease) */
+  animation: gradientFlow 10s ease infinite;
+}
+
+/* 定義背景移動的軌跡：讓漸層的對角線在 0% -> 50% -> 100% 之間緩慢位移 */
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
